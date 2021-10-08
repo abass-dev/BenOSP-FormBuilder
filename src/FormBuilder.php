@@ -90,7 +90,7 @@ class FormBuilder {
         }
         $content = implode(PHP_EOL, array_map(fn($elements) => $elements->build(), $this->elements));
         echo sprintf('
-        <form action="%s", method="%s" class="row%s">%s</form>',
+        <form action="%s" method="%s" class="row%s">%s</form>',
             $this->action, $this->method, $classes, $content);
     }
 }
