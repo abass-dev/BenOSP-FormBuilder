@@ -60,12 +60,21 @@ class FormBuilder {
     *
     * @return self
     */
-    public function add(AbstractType $elements): self
+    public function add(string $types, array $potions): self
     {
-        $this->elements[] = $elements;
+        $types = "BenOSP\\Type\\".ucfirst($types."Type");
+        $typeClass = new $types($potions["name"], $potions["label"] ?? "");
+        
+        $this->input($typeClass);
+        
         return $this;
     }
-
+    
+    public function input(AbstractType $elements)
+    {
+        $this->elements[] = $elements;
+    }
+    
     /**
     * Final form builder/render
     *

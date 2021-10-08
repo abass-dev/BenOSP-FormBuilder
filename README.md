@@ -7,13 +7,23 @@
 <?php
 require_once '../vendor/autoload.php';
 
-use BenOSP\FormBuilder;
-use BenOSP\Type\{ TextType, EmailType, PasswordType, ButtonType };
+use BenOSP\FormBuilder as Form;
 
-$form = new FormBuilder();
-$form->add(new TextType("firstname", "First name"));
-$form->add(new TextType("lastname", "Last name"));
-$form->add(new EmailType("email", "Your email"));
-$form->add(new PasswordType("password", "Your password"));
-$form->add(new ButtonType("Submit"))->build();
+(new Form())
+
+->add("text",[
+    "name"     => "firstname", 
+    "label"    => "First name"
+])->add("text",[
+    "name"     => "lastname", 
+    "label"    => "Last name"
+])->add("email",[
+    "name"     => "email", 
+    "label"    => "Address email"
+])->add("password",[
+    "name"     => "password", 
+    "label"    => "Your password"
+])->add("button",[
+    "name"     => "Submit"
+])->build();
 ```
