@@ -1,0 +1,22 @@
+{
+    "name": "benosp/formbuilder",
+    "description": "BenOSP(Ben Open-Source Project) FormBuilder",
+    "type": "library",
+    "keywords": ["BenOSP", "form", "builder", "OOP"],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BenOSP\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abass Ben Cheik",
+            "email": "cheikabassben@gmail.com",
+            "role": "Lead Developer"
+        }
+    ],
+    "require-dev": {},
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
