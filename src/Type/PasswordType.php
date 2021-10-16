@@ -18,11 +18,12 @@ use BenOSP\Type\BaseType;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class PasswordType extends BaseType {
+class PasswordType extends BaseType
+{
     
     /** {@inheritDoc} */
     public function renderInput(): string
     {
-         return sprintf('<input type="password" name="%s" value="%s"/>',  $this->name, $this->value);   
+         return sprintf('<input id="%s" name="%s" type="password" value="%s" class="form-control" placeholder="%s">', $this->id, $this->name, $this->value, $this->placeholder);
     }
 }

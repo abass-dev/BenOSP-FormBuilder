@@ -16,7 +16,8 @@ namespace BenOSP;
 *
 * @author Abass Ben Cheik <abass@todaysdev.com>
 */
-class FormBuilder {
+class FormBuilder
+{
 
      /**
     * @var string
@@ -41,13 +42,14 @@ class FormBuilder {
     /**
     * FormBuilder constructor
     *
-    * @param string $action
     * @param string $method
+    * @param string $action
     * @param string[] $classes
     *
     * @return void
     */
-    public function __construct(string $action = "", string $method = "get", array $classes = []) {
+    public function __construct(string $method = "post", string $action = "", array $classes = [])
+    {
         $this->action = $action;
         $this->method = $method;
         $this->classes = $classes;
@@ -60,10 +62,17 @@ class FormBuilder {
     *
     * @return self
     */
-    public function add(string $types, array $potions): self
+    public function add(string $types, array $params): self
     {
         $types = "BenOSP\\Type\\".ucfirst($types."Type");
-        $typeClass = new $types($potions["name"], $potions["label"] ?? "");
+        $typeClass = new $types(
+            $params["name"],
+            $params["id"] ?? $params["name"],
+            $params["value"] ?? "",
+            $params["placeholder"] ?? ucfirst($params["name"]),
+            $params["label"] ?? ucfirst($params["name"]),
+            $params["feedback"] ?? ""
+        );
         
         $this->input($typeClass);
         
@@ -89,8 +98,16 @@ class FormBuilder {
             $classes = "";
         }
         $content = implode(PHP_EOL, array_map(fn($elements) => $elements->build(), $this->elements));
-        echo sprintf('
-        <form action="%s" method="%s" class="row%s">%s</form>',
-            $this->action, $this->method, $classes, $content);
+        echo sprintf(
+            '
+        <form method="%s" action="%s" class="mt-4 mb-4%s">
+        %s
+        </form>
+        ',
+            $this->method,
+            $this->action,
+            $classes,
+            $content
+        );
     }
 }

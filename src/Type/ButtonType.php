@@ -18,7 +18,8 @@ use BenOSP\AbstractType;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class ButtonType extends AbstractType {
+class ButtonType extends AbstractType
+{
     
     /**
      * @var string
@@ -36,8 +37,10 @@ class ButtonType extends AbstractType {
     /** {@inheritDoc} */
     public function build(): string
     {
-     return sprintf('
-     <button type="submit">%s</button>
-     ', $this->text);   
+        return sprintf('
+       <div class="text-end">
+            <button type="button" class="btn bg-secondary">%s</button>
+       </div>
+     ', $this->text);
     }
 }

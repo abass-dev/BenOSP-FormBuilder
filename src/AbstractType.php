@@ -15,10 +15,11 @@ namespace BenOSP;
  * Abstract type
  *    Each type must extends  this class or implement TypeInterface
  *      This class should not be instantiated
- * 
+ *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-abstract class AbstractType implements TypeInterface {
+abstract class AbstractType implements TypeInterface
+{
     
     /** {@inheritDoc} */
     abstract public function build(): string;

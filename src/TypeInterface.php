@@ -15,7 +15,8 @@ namespace BenOSP;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-interface TypeInterface {
+interface TypeInterface
+{
    /**
     * The final form builder/render
     * @return string
