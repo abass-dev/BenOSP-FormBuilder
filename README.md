@@ -11,19 +11,17 @@ use BenOSP\FormBuilder as Form;
 
 (new Form())
 
-->add("text",[
-    "name"     => "firstname", 
-    "label"    => "First name"
-])->add("text",[
-    "name"     => "lastname", 
-    "label"    => "Last name"
-])->add("email",[
-    "name"     => "email", 
-    "label"    => "Address email"
-])->add("password",[
-    "name"     => "password", 
-    "label"    => "Your password"
-])->add("button",[
-    "name"     => "Submit"
-])->build();
+->add('text', [
+   'name' => "subject",
+   "label" => "📝"
+
+])->add("text", [
+    "name" => "level",
+    "label" => "📶"
+    
+])->add("dateTime", [
+    "name" => "createdAt",
+    "label" => "📆"
+
+])->add("submit", ["name" => "➕"]);
 ```
