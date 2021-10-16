@@ -20,10 +20,15 @@ use BenOSP\Type\BaseType;
  */
 class EmailType extends BaseType
 {
-    
     /** {@inheritDoc} */
     public function renderInput(): string
     {
-         return sprintf('<input id="%s" name="%s" type="email" value="%s" class="form-control" placeholder="%s">', $this->id, $this->name, $this->value, $this->placeholder);
+        if (is_array($this->classes) && count($this->classes) > 0) {
+            $classes = " ";
+            $classes .= implode(" ", $this->classes);
+        } else {
+            $classes = "";
+        }
+        return sprintf('<input id="%s" name="%s" type="email" value="%s" class="form-control%s" placeholder="%s">', $this->id, $this->name, $this->value, $classes, $this->placeholder);
     }
 }

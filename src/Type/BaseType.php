@@ -90,16 +90,9 @@ abstract class BaseType extends AbstractType
     /** {@inheritDoc} */
     public function build(): string
     {
-        if (is_array($this->classes) && count($this->classes) > 0) {
-            $classes = " ";
-            $classes .= implode(" ", $this->classes);
-        } else {
-            $classes = "";
-        }
-        
         return sprintf(
             '
-         <div class="form-group%s">
+         <div class="form-group">
             <div class="text-danger feedback">%s</div>
             <div class="input-group mb-3">
                 <label for="%s" class="input-group-text">%s</label>
@@ -107,7 +100,6 @@ abstract class BaseType extends AbstractType
             </div>
         </div>
        ',
-            $classes,
             $this->feedback,
             $this->id,
             $this->label,

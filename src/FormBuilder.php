@@ -71,7 +71,8 @@ class FormBuilder
             $params["value"] ?? "",
             $params["placeholder"] ?? ucfirst($params["name"]),
             $params["label"] ?? ucfirst($params["name"]),
-            $params["feedback"] ?? ""
+            $params["feedback"] ?? "",
+            $params["classes"] ?? []
         );
         
         $this->input($typeClass);
