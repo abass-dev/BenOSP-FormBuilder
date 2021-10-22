@@ -226,7 +226,6 @@ class Configuration
         } else {
             $bootstrap = null;
         }
-        var_dump($bootstrap);
         if(is_null($bootstrap)) {
             throw new ConfigurationException("FormBuilder configuration exception: Require bootstrap to build styles assets, try 'composer install'");
         } else {
