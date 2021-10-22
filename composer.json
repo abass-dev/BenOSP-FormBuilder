@@ -1,19 +1,13 @@
 {
     "name": "benosp/formbuilder",
-    "description": "BenOSP(Ben Open-Source Project) FormBuilder",
+    "description": "BenOSP(Abass Ben Cheik Open-Source Project) php form builder",
     "type": "library",
-    "keywords": ["BenOSP", "form", "builder", "OOP"],
+    "keywords": ["BenOSP", "form", "builder", "PHP OOP"],
     "license": "MIT",
     "autoload": {
         "psr-4": {
             "BenOSP\\": "src/"
         }
-    },
-    "scripts": {
-        "post-update-cmd": [
-            "rm -rf public/bootstrap",
-            "cp -R vendor/twbs/bootstrap/dist public/bootstrap"
-        ]
     },
     "authors": [
         {
@@ -22,6 +16,9 @@
             "role": "Lead Developer"
         }
     ],
+    "bin": [
+        "benosp"
+        ],
     "require": {
         "twbs/bootstrap": "5.1.3"
     },

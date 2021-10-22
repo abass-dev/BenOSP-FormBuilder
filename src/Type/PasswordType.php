@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the BenOSP
+ * This file is part of the BenOSP(Abass Ben Cheik Open-source Projet)
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *

@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the BenOSP
+ * This file is part of the BenOSP(Abass Ben Cheik Open-source Projet)
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
@@ -16,7 +16,7 @@ namespace BenOSP;
 *
 * @author Abass Ben Cheik <abass@todaysdev.com>
 */
-class FormBuilder
+class FormBuilder extends Configuration
 {
 
      /**
@@ -40,7 +40,7 @@ class FormBuilder
     public array $elements = [];
 
     /**
-    * FormBuilder constructor
+    * Form builder constructor
     *
     * @param string $method
     * @param string $action
@@ -58,7 +58,8 @@ class FormBuilder
     /**
     * Add new Html input
     *
-    * @param AbstractType $elements
+    * @param string $types
+    * @param array $params
     *
     * @return self
     */
@@ -80,7 +81,13 @@ class FormBuilder
         return $this;
     }
     
-    public function input(AbstractType $elements)
+    /**
+     * Html input types
+     * 
+     * @param AbstractType $elements
+     * @return void
+     */
+    public function input(AbstractType $elements): void
     {
         $this->elements[] = $elements;
     }

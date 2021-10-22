@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+use BenOSP\Configuration;
+$configFile = null;
+for ($i = 1; $i < 5; $i++) {
+if(file_exists(dirname(__DIR__, $i)."/vendor/autoload.php")) {
+$configFile = dirname(__DIR__, $i)."/vendor/autoload.php";
+break;
+}
+}
+if(file_exists($configFile)) {
+require_once($configFile);
+} else {
+fwrite(STDERR,
+"\33[41mFATAL:\nFormBuilder configuration errors: Bootstrap is required to build styles assets, try 'composer install'"
+."\33[0m\n\n\33[44mINFO:\nPlease install dependencies with 'composer install' to run this script"
+.PHP_EOL);
+
+exit(1);
+}
+
+if(isset($argv[1]) && $argv[1] == 'build') {
+    (new Configuration())->buildAssets();
+} else {
+fwrite(STDERR,
+"\33[41mERROR:\n\n unknown command you mean 'build'?\n\n"
+.PHP_EOL);
+}
