@@ -15,7 +15,7 @@ require_once '../vendor/autoload.php';
 
 use BenOSP\FormBuilder as Form;
 
-(new Form())
+$form = (new Form())
 
 ->add('text', [
    'name' => "subject",
@@ -29,5 +29,52 @@ use BenOSP\FormBuilder as Form;
     "name" => "createdAt",
     "label" => "📆"
 
-])->add("submit", ["name" => "➕"])->build();
+])->add("submit", ["name" => "➕"]);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form builder</title>
+  <link rel="stylesheet" href="assets/dist/css/bootstrap.min.css">
+ </head>
+    <body class="container">
+        <?php $form->build() ?>
+    </body>
+</html>
+```
+## Additional CSS framework
+At the moment only bootstrap is available.
+By installing benosp/formbuilder you already have bootstrap installed somewhere in your project.
+
+But you have to tell the formbuilder where you want to build your assets by creating a configuration file 
+in the root of your project create a file with the name ```bash benosp-config.json ```
+then copy and paste the code below, modify it as you wish
+
+```json
+{
+	"public-dir":"public/",
+	"assets-dir":"assets/",
+	"styles":"bootstrap"
+}
+```
+
+The next is to build the assets
+
+#### Run the following command to build assets
+```bash
+$ ./vendor/bin/benosp build
+```
+
+Then link to the CSS or JS
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form builder</title>
+  <link rel="stylesheet" href="assets/dist/css/bootstrap.min.css">
+  <script src="assets/dist/js/bootstrap.min.js"></script>
+</head>
 ```
