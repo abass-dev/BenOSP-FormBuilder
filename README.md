@@ -48,10 +48,7 @@ $form = (new Form("get", "", ["card"]))
 </html>
 
 ```
-***NOTE:**
-You can delete the below method after you run the script for the first time it's for building bootstrap script
-into assets/ folder.
-
+***NOTE** You can delete the method below after running the script for the first time. This is to build the bootstrap script in the assets/ folder.
 ```php
 buildAssets("assets/");
 ```
