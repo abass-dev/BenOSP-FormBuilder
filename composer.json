@@ -17,7 +17,7 @@
         }
     ],
     "bin": [
-        "bin/benosp"
+        "benosp"
         ],
     "require": {
         "twbs/bootstrap": "5.1.3"
