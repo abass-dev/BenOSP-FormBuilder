@@ -15,7 +15,7 @@ require_once 'path/to/vendor/autoload.php';
 
 use BenOSP\FormBuilder as Form;
 
-$form = (new Form("get", "", ["card"]))
+$form = (new Form())
 
 ->add('text', [
    'name' => "subject",
