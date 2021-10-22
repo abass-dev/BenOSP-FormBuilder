@@ -20,7 +20,7 @@ exit(1);
 }
 
 if(isset($argv[1]) && $argv[1] == 'build') {
-    (new Configuration())->buildAssets();
+    (new Configuration($argv))->buildAssets();
 } else {
 fwrite(STDERR,
 "\33[41mERROR:\n\n unknown command you mean 'build'?\n\n"

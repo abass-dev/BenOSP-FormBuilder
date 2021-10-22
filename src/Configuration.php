@@ -26,6 +26,11 @@ class Configuration
     private $configFile;
     
     /**
+     * @var array
+     */
+    private $configs = [];
+    
+    /**
      * @var string
      */
     private $publicDir;
@@ -43,19 +48,49 @@ class Configuration
     /**
     * Form builder configuration constructor
     *
+    * @param array[] $configs
     * @return void
     */
-    public function __construct()
-    {}
+    public function __construct(array $configs = [])
+    {
+        if (count($configs) > 1) {
+            foreach ($configs as $value) {
+                if (preg_match("/--public-dir=/", $value)) {
+                       $public  = str_ireplace("--public-dir=", "",$value);
+                       if (strlen($public) < 2) {
+                           die("\33[0m\33[41mInvalide --public-dir value");
+                       } else {
+                           $this->configs["public-dir"] = $public;
+                       }
+                }
+                if (preg_match("/--assets-dir=/", $value)) {
+                       $assets = str_ireplace("--assets-dir=", "",$value);
+                       if (strlen($assets) < 2) {
+                           die("\33[0m\33[41mInvalide --assets-dir value");
+                       } else {
+                           $this->configs["assets-dir"] = $assets;
+                       }
+                }
+                if (preg_match("/--styles=/", $value)) {
+                       $style = str_ireplace("--styles=", "",$value);
+                       if (strlen($style) < 2) {
+                           die("\33[0m\33[41mInvalide --styles value");
+                       } else { 
+                           $this->configs["styles"] = $style;
+                       }
+                }
+            }
+        }
+    }
     
     /**
      * Get configuration
      * 
      * @return array[]|null
      */
-    public function config(array $configs = [])
+    public function getConfig()
     {
-        if(count($configs) === 0) {
+        if(count($this->configs) < 1) {
             $file = null;
             for ($i = 1; $i < 5; $i++) {
                     if(file_exists(dirname(__DIR__, $i)."/benosp-config.json")) {
@@ -68,7 +103,7 @@ class Configuration
             }
             return $file;
         } else {
-         return $configs;
+         return $this->configs;
         }
     }
     
@@ -90,8 +125,12 @@ class Configuration
      */
     public function getPublicDir(): string
     {
-        if (!is_null($this->config()) && isset($this->config()['public-dir'])) {
-            return $this->config()["public-dir"];
+        if (!is_null($this->getConfig()) && isset($this->getConfig()['public-dir'])) {
+            if (!is_null($this->configFile)) {
+                $dir = str_replace("/benosp-config.json/", "", $this->configFile);
+                return $dir.$this->getConfig()["public-dir"];
+            }
+            return $this->getConfig()["public-dir"];
         }
        return $this->publicDir;
     }
@@ -114,8 +153,10 @@ class Configuration
      */
     public function getAssetsDir(): string
     {
-        if (!is_null($this->config()) && isset($this->config()['assets-dir'])) {
-            return $this->config()["assets-dir"];
+        if (!is_null($this->getConfig()) && isset($this->getConfig()['assets-dir'])) {
+            return $this->getConfig()["assets-dir"];
+        } elseif (is_string($this->getPublicDir())) {
+            return "assets";
         }
         return $this->assetsDir;
     }
@@ -138,8 +179,8 @@ class Configuration
      */
     public function getStyles(): string
     {
-        if (!is_null($this->config()) && isset($this->config()['styles'])) {
-            return $this->config()["styles"];
+        if (!is_null($this->getConfig()) && isset($this->getConfig()['styles'])) {
+            return $this->getConfig()["styles"];
         }
         return $this->styles;
     }
@@ -152,27 +193,40 @@ class Configuration
      */
     public function buildAssets()
     {
-        $this->config();
-        $dir = str_replace("benosp-config.json", "", $this->configFile);
-       
-        $findPublicDir = $dir . $this->getPublicDir();
-        $findAssetsDir = $findPublicDir . $this->getAssetsDir();
-       
-        if(!is_dir($findPublicDir)) {
-            mkdir($findPublicDir, 0777, true);
-        }
-        if(!is_dir($findAssetsDir)) {
-            mkdir($findAssetsDir, 0777, true);
+        $this->getConfig();
+        
+        if (is_null($this->configFile) && count($this->configs) === 0) {
+            try {
+                throw new ConfigurationException("ERROR: Can't find configuration file");
+            } catch (ConfigurationException $e) {
+                echo "\33[0m\33[41m". $e->getMessage(). " in ". $e->getFile()." on line the ".$e->getLine(); 
+                exit(1);
+            }
         }
         
-        $bootstrap = $dir."vendor/twbs/bootstrap/dist/";
+        $assetDir = "{$this->getPublicDir()}/{$this->getAssetsDir()}";
+       
+        if(!is_dir($this->getPublicDir())) {
+            mkdir($this->getPublicDir(), 0777, true);
+        }
+        if(!is_dir($assetDir)) {
+            mkdir($assetDir, 0777, true);
+        }
         
-        if(!is_dir($bootstrap)) {
+        $bootstrap = null;
+        for ($i = 1; $i < 5; $i++) {
+            if (is_dir(\dirname("vendor/twbs/bootstrap/dist/", $i))) {
+                $bootstrap = "vendor/twbs/bootstrap/dist/";
+                break;
+            }
+        }
+        
+        if(is_null($bootstrap)) {
             throw new ConfigurationException("FormBuilder configuration exception: Require bootstrap to build styles assets, try 'composer install'");
         } else {
-            shell_exec("cp -r $bootstrap $findAssetsDir");
+            shell_exec("cp -r $bootstrap $assetDir");
             if (php_sapi_name() === 'cli') {
-                echo "\33[0m\n\n\33[44mSUCCESS:\n\n\nAssets was built successfully in ./{$this->getPublicDir()}{$this->getAssetsDir()} directory\n\n".PHP_EOL;
+                echo "\33[0m\33[44mSUCCESS:\n\n\nAssets was built successfully in ./$assetDir directory\n\n".PHP_EOL;
             }
         }
     }
