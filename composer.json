@@ -9,6 +9,12 @@
             "BenOSP\\": "src/"
         }
     },
+    "scripts": {
+        "post-update-cmd": [
+            "rm -rf public/bootstrap",
+            "cp -R vendor/twbs/bootstrap/dist public/bootstrap"
+        ]
+    },
     "authors": [
         {
             "name": "Abass Ben Cheik",
@@ -16,6 +22,9 @@
             "role": "Lead Developer"
         }
     ],
+    "require": {
+        "twbs/bootstrap": "5.1.3"
+    },
     "require-dev": {},
     "minimum-stability": "dev",
     "prefer-stable": true
