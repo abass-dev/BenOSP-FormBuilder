@@ -204,7 +204,7 @@ class Configuration
             }
         }
         
-        $assetDir = "{$this->getPublicDir()}/{$this->getAssetsDir()}";
+        $assetDir = str_replace("//", "/", "{$this->getPublicDir()}/{$this->getAssetsDir()}");
        
         if(!is_dir($this->getPublicDir())) {
             mkdir($this->getPublicDir(), 0777, true);
