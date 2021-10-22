@@ -11,7 +11,7 @@ $ composer require benosp/formbuilder
 
 ```php
 <?php
-require_once '../vendor/autoload.php';
+require_once 'path/to/vendor/autoload.php';
 
 use BenOSP\FormBuilder as Form;
 
