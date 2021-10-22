@@ -29,5 +29,5 @@ use BenOSP\FormBuilder as Form;
     "name" => "createdAt",
     "label" => "📆"
 
-])->add("submit", ["name" => "➕"]);
+])->add("submit", ["name" => "➕"])->build();
 ```
