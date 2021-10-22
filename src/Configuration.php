@@ -111,11 +111,12 @@ class Configuration
      * Set public detectory/web root 
      * 
      * @param string $publicDir
-     * @return void
+     * @return self
      */
-    public function setPublicDir(string $publicDir): void
+    public function setPublicDir(string $publicDir): self
     {
         $this->publicDir = $publicDir;
+        return $this;
     }
 
     /**
@@ -139,11 +140,12 @@ class Configuration
      * Set assets directory 
      * 
      * @param string $assetsDir
-     * @return void
+     * @return self
      */
-    public function setAssetsDir(string $assetsDir): void
+    public function setAssetsDir(string $assetsDir): self
     {
         $this->assetsDir = $assetsDir;
+        return $this;
     }
     
     /**
@@ -155,21 +157,20 @@ class Configuration
     {
         if (!is_null($this->getConfig()) && isset($this->getConfig()['assets-dir'])) {
             return $this->getConfig()["assets-dir"];
-        } elseif (is_string($this->getPublicDir())) {
-            return "assets";
         }
-        return $this->assetsDir;
+        return $this->assetsDir ?? "";
     }
     
     /**
      * Set CSS framework (e.g: bootstrap...)
      * 
      * @param string $styles
-     * @return void
+     * @return self
      */
-    public function setStyles(string $styles): void
+    public function setStyles(string $styles): self
     {
         $this->styles = $styles;
+        return $this;
     }
     
     /**
@@ -191,9 +192,12 @@ class Configuration
      * @return void
      * @throws ConfigurationException
      */
-    public function buildAssets()
+    public function buildAssets(string $assetDirectory = ""): self
     {
         $this->getConfig();
+        if (!empty($assetDirectory) && $assetDirectory != " ") {
+            $this->setPublicDir($assetDirectory);
+        }
         
         if (is_null($this->configFile) && count($this->configs) === 0 && !is_string($this->getPublicDir())) {
             try {
@@ -234,5 +238,6 @@ class Configuration
                 echo "\33[0m\33[44mSUCCESS:\n\n\nAssets was built successfully in ./$assetDir directory\n\n".PHP_EOL;
             }
         }
+        return $this;
     }
 }
