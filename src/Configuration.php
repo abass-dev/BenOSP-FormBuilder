@@ -195,7 +195,7 @@ class Configuration
     {
         $this->getConfig();
         
-        if (is_null($this->configFile) && count($this->configs) === 0) {
+        if (is_null($this->configFile) && count($this->configs) === 0 && !is_string($this->getPublicDir())) {
             try {
                 throw new ConfigurationException("ERROR: Can't find configuration file");
             } catch (ConfigurationException $e) {
@@ -213,14 +213,20 @@ class Configuration
             mkdir($assetDir, 0777, true);
         }
         
-        $bootstrap = null;
-        for ($i = 1; $i < 5; $i++) {
-            if (is_dir(\dirname("vendor/twbs/bootstrap/dist/", $i))) {
-                $bootstrap = "vendor/twbs/bootstrap/dist/";
-                break;
-            }
+        if (is_dir("vendor/twbs/bootstrap/dist/")) {
+            $bootstrap = "vendor/twbs/bootstrap/dist/";
+        } elseif(is_dir("./vendor/twbs/bootstrap/dist/")) {
+            $bootstrap = "./vendor/twbs/bootstrap/dist/";
+        } elseif(is_dir("../vendor/twbs/bootstrap/dist/")) {
+            $bootstrap = "../vendor/twbs/bootstrap/dist/";
+        } elseif(is_dir(".././vendor/twbs/bootstrap/dist/")) {
+            $bootstrap = ".././vendor/twbs/bootstrap/dist/";
+        } elseif(is_dir("../../vendor/twbs/bootstrap/dist/")) {
+            $bootstrap = "../../vendor/twbs/bootstrap/dist/";
+        } else {
+            $bootstrap = null;
         }
-        
+        var_dump($bootstrap);
         if(is_null($bootstrap)) {
             throw new ConfigurationException("FormBuilder configuration exception: Require bootstrap to build styles assets, try 'composer install'");
         } else {
