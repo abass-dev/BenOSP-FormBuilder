@@ -8,14 +8,11 @@
 $ composer require benosp/formbuilder
 ```
 ## Basic usage
-
 ```php
 <?php
 require_once 'path/to/vendor/autoload.php';
 
-use BenOSP\FormBuilder as Form;
-
-$form = (new Form())
+$form = (new \BenOSP\FormBuilder())
 
 ->add('text', [
    'name' => "subject",
@@ -33,7 +30,9 @@ $form = (new Form())
     "name" => "➕"
 
 ])->buildAssets("assets/");
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
