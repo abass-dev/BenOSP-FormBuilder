@@ -47,7 +47,7 @@ $form = (new \BenOSP\FormBuilder)
 </html>
 
 ```
-***NOTE** You can delete the method below after running the script for the first time. This is to build the bootstrap script in the assets/ folder.
+***NOTE** You can delete the method below after running the script for the first time. This is to build the bootstrap script in the public/assets/ folder for example
 ```php
 buildAssets("assets/");
 ```
