@@ -12,7 +12,7 @@ $ composer require benosp/formbuilder
 <?php
 require_once 'path/to/vendor/autoload.php';
 
-$form = (new \BenOSP\FormBuilder())
+$form = (new \BenOSP\FormBuilder)
 
 ->add('text', [
    'name' => "subject",
