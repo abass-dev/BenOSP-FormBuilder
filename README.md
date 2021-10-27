@@ -51,3 +51,4 @@ $form = (new \BenOSP\FormBuilder)
 ```php
 buildAssets("assets/");
 ```
+This form builder is also used by nigatedev framework for some test [link](https://nigatedev.herokuapp.com/todo)
