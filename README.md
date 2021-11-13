@@ -8,9 +8,9 @@
 $ composer require benosp/formbuilder
 ```
 ## Basic usage
-```php
+```
 <?php
-require_once 'path/to/vendor/autoload.php';
+require_once './vendor/autoload.php';
 
 $form = (new \BenOSP\FormBuilder)
 
@@ -29,7 +29,7 @@ $form = (new \BenOSP\FormBuilder)
 ])->add("submit",[
     "name" => "➕"
 
-])->buildAssets("assets/");
+])->buildAssets("assets/bootstrap/");
 
 ?>
 
@@ -39,7 +39,7 @@ $form = (new \BenOSP\FormBuilder)
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form builder</title>
-  <link rel="stylesheet" href="assets/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css">
  </head>
     <body class="container">
         <?php $form->build() ?>
