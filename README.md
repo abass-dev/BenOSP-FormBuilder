@@ -8,8 +8,7 @@
 $ composer require benosp/formbuilder
 ```
 ## Basic usage
-```
-<?php
+```<?php
 require_once './vendor/autoload.php';
 
 $form = (new \BenOSP\FormBuilder)
